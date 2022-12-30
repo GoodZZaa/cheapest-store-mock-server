@@ -1,17 +1,19 @@
 package com.goodzza.cheapeststore.api.dto;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class GatewayRequest {
+public class SearchResponse {
 
-    private Boolean isFirst;
-    private Integer PageSize;
-    private Integer PageNumber;
+    private List<MartProductSearchVo> martProducts;
 }

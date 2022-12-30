@@ -1,4 +1,4 @@
-package com.goodzza.cheapeststore.api.gateway;
+package com.goodzza.cheapeststore.api.controller.gateway;
 
 import com.goodzza.cheapeststore.api.application.RandomMartGenerator;
 import com.goodzza.cheapeststore.api.application.RandomMartProductGenerator;
@@ -25,6 +25,8 @@ public class GatewayController {
 
     @GetMapping
     public ResponseEntity<GatewayResponse> getGatewayPage(@RequestParam(required = false) Boolean isFirst,
+                                                          @RequestParam float latitude,
+                                                          @RequestParam float longitude,
                                                           @RequestParam(required = false) Integer pageSize,
                                                           @RequestParam(required = false) Integer pageNumber) {
         if (isNull(isFirst)) {

@@ -1,6 +1,8 @@
 package com.goodzza.cheapeststore.api.application;
 
+import com.goodzza.cheapeststore.api.dto.MartProductSearchVo;
 import com.goodzza.cheapeststore.api.dto.MartProductVo;
+import com.goodzza.cheapeststore.api.dto.UnitType;
 import com.goodzza.cheapeststore.utils.RandomIdUtils;
 import com.google.common.collect.ImmutableList;
 import lombok.RequiredArgsConstructor;
@@ -76,5 +78,25 @@ public class RandomMartProductGenerator implements RandomGenerator<MartProductVo
                             .imageUrl(imageUrl)
                             .price(RAND.nextLong(1000L, 50000L) % 100 * 100)
                             .build();
+    }
+
+    public List<MartProductSearchVo> searchMartProducts(String keyword, Integer pageSize, Integer pageNumber) {
+        List<MartProductVo> mocks = generate(pageSize, pageNumber);
+        List<MartProductSearchVo> vos = mocks.stream().map(MartProductSearchVo::convert).collect(Collectors.toList());
+        vos.forEach(mock -> {
+            Long originalPrice = mock.getPrice();
+            int discountPercent = RAND.nextInt(50);
+            UnitType randomUnit = UnitType.getRandomUnit();
+
+            mock.setProductName(randomAdjectiveGenerator.getRandomAdjective() + WHITE_SPACE + keyword);
+            mock.setOriginalPrice(originalPrice);
+            mock.setDiscountPercent(discountPercent);
+            mock.setPrice((long) (discountPercent / 100f * originalPrice));
+            mock.setUnit(randomUnit.getUnitName());
+            mock.setUnitValue(1 + RAND.nextInt(randomUnit.getUpperLimit()));
+            mock.setProductId(RandomIdUtils.getRandomId(0, 2000L));
+        });
+
+        return vos;
     }
 }
