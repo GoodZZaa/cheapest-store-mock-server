@@ -3,6 +3,9 @@ package com.goodzza.cheapeststore.api.controller.gateway;
 import com.goodzza.cheapeststore.api.application.RandomMartGenerator;
 import com.goodzza.cheapeststore.api.application.RandomMartProductGenerator;
 import com.goodzza.cheapeststore.api.dto.GatewayResponse;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +26,13 @@ public class GatewayController {
     private final RandomMartProductGenerator randomMartProductGenerator;
     private final RandomMartGenerator randomMartGenerator;
 
+    @Operation(summary = "gateway page", description = "게이트 페이지 API, 첫 페이지 이후에는 cheapestProducts만 채워서 응답한다")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "OK !!"),
+            @ApiResponse(responseCode = "400", description = "BAD REQUEST !!"),
+            @ApiResponse(responseCode = "404", description = "NOT FOUND !!"),
+            @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR !!")
+    })
     @GetMapping
     public ResponseEntity<GatewayResponse> getGatewayPage(@RequestParam(required = false) Boolean isFirst,
                                                           @RequestParam float latitude,
@@ -42,19 +52,19 @@ public class GatewayController {
             isFirst = Boolean.TRUE;
         }
 
+        GatewayResponse response =
+                GatewayResponse.builder()
+                               .cheapestProducts(randomMartProductGenerator.generate(pageSize, pageNumber))
+                               .pageSize(pageSize + 1)
+                               .pageNumber(pageNumber)
+                               .build();
+
         if (isFirst) {
-            return ResponseEntity.ok(
-                    GatewayResponse.builder()
-                                   .promotionProducts(randomMartProductGenerator.generate(PROMOTION_EXPOSURE_COUNT, 0))
-                                   .cheapestMarts(randomMartGenerator.generate(pageSize, pageNumber))
-                                   .cheapestProducts(randomMartProductGenerator.generate(pageSize, pageNumber))
-                                   .build());
-        } else {
-            return ResponseEntity.ok(
-                    GatewayResponse.builder()
-                                   .promotionProducts(randomMartProductGenerator.generate(pageSize, pageNumber))
-                                   .build());
+            response.setPromotionProducts(randomMartProductGenerator.generate(PROMOTION_EXPOSURE_COUNT, 0));
+            response.setCheapestMarts(randomMartGenerator.generate(pageSize, pageNumber));
         }
+
+        return ResponseEntity.ok(response);
     }
 
 }

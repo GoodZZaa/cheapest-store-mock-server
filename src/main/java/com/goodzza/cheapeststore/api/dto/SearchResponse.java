@@ -16,4 +16,6 @@ import java.util.List;
 public class SearchResponse {
 
     private List<MartProductSearchVo> martProducts;
+    private Integer pageSize;
+    private Integer pageNumber;
 }

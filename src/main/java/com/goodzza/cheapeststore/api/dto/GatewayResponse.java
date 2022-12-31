@@ -18,4 +18,6 @@ public class GatewayResponse {
     private List<MartProductVo> promotionProducts;
     private List<MartVo> cheapestMarts;
     private List<MartProductVo> cheapestProducts;
+    private Integer pageSize;
+    private Integer pageNumber;
 }

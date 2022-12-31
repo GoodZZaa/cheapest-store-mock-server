@@ -2,6 +2,9 @@ package com.goodzza.cheapeststore.api.controller.search;
 
 import com.goodzza.cheapeststore.api.application.RandomMartProductGenerator;
 import com.goodzza.cheapeststore.api.dto.SearchResponse;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +23,13 @@ public class SearchController {
 
     private final RandomMartProductGenerator randomMartProductGenerator;
 
+    @Operation(summary = "search products", description = "키워드로 상품을 검색하는 API")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "OK !!"),
+            @ApiResponse(responseCode = "400", description = "BAD REQUEST !!"),
+            @ApiResponse(responseCode = "404", description = "NOT FOUND !!"),
+            @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR !!")
+    })
     @GetMapping("/products")
     public ResponseEntity<SearchResponse> searchProduct(@RequestParam String keyword,
                                                         @RequestParam float latitude,
@@ -38,6 +48,8 @@ public class SearchController {
                 SearchResponse.builder()
                               .martProducts(
                                       randomMartProductGenerator.searchMartProducts(keyword, pageSize, pageNumber))
+                              .pageSize(pageSize + 1)
+                              .pageNumber(pageNumber)
                               .build());
     }
 
