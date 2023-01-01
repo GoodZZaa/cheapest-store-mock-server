@@ -7,7 +7,6 @@ on:
 
 jobs:
   docker:
-    runs-on: linux
     steps:
       - name: Docker Setup Buildx
         uses: docker/setup-buildx-action@v2.0.0
