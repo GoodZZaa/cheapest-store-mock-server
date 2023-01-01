@@ -68,10 +68,8 @@ tasks.bootBuildImage {
     System.out.println("tag: " + tag);
     System.out.println("project.version: " + project.version);
 
-
     if(dockerUrl != null){
         publish = true
-
         builder = "paketobuildpacks/builder@sha256:3c5f88e55da475957bd03b4d6e852e0938bb73ee1a5184ae291a7566ca83d97f"
         runImage = "paketobuildpacks/run@sha256:562ddd10160a2629168a0108894766b46dff7f4b0db263ecabe35cd56fcbe56d"
         imageName = "${dockerImageName ?: project.name }:${tag ?: project.version}"
@@ -86,6 +84,7 @@ tasks.bootBuildImage {
         }
     }
 }
+
 
 int getCommitCount() {
     def stdout = new ByteArrayOutputStream()
