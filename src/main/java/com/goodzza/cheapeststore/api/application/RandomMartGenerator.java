@@ -58,14 +58,12 @@ public class RandomMartGenerator implements RandomGenerator<MartVo> {
     private static final Random RAND = new Random();
     private final RandomAdjectiveGenerator randomAdjectiveGenerator;
 
-    @Override
     public List<MartVo> generate(Integer pageSize, Integer pageNumber) {
         return IntStream.range(0, pageSize)
                         .mapToObj(i -> generate(RandomIdUtils.getRandomId(pageNumber, 100L)))
                         .collect(Collectors.toList());
     }
 
-    @Override
     public MartVo generate(Long id) {
         MartVo mock = generate();
         mock.setMartId(id);

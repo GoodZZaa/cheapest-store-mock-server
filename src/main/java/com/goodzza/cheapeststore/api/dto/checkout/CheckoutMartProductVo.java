@@ -1,5 +1,6 @@
-package com.goodzza.cheapeststore.api.dto;
+package com.goodzza.cheapeststore.api.dto.checkout;
 
+import com.goodzza.cheapeststore.api.dto.MartProductVo;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,7 +12,7 @@ import org.springframework.beans.BeanUtils;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CheckoutMartProductVo extends MartProductVo {
-    
+
     private int amount;
 
     public static CheckoutMartProductVo convert(MartProductVo vo) {
