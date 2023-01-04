@@ -9,6 +9,7 @@ import com.goodzza.cheapeststore.api.dto.checkout.AmountChangeRequest;
 import com.goodzza.cheapeststore.api.dto.checkout.CheckoutMartProductVo;
 import com.goodzza.cheapeststore.api.dto.checkout.CheckoutResponse;
 import com.goodzza.cheapeststore.api.dto.checkout.MartProductDeleteRequest;
+import com.goodzza.cheapeststore.api.dto.checkout.MartProductInsertRequest;
 import com.goodzza.cheapeststore.api.dto.recommendation.MartRecommendationVo;
 import com.goodzza.cheapeststore.api.dto.recommendation.RecommendationVo;
 import io.swagger.v3.oas.annotations.Operation;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
@@ -57,6 +59,18 @@ public class CheckoutController {
         return ResponseEntity.ok(CheckoutResponse.builder()
                                                  .products(checkoutMartProducts)
                                                  .build());
+    }
+
+    @Operation(summary = "insert mart product into checkout", description = "장바구니에 마트 상품 추가")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "OK !!"),
+            @ApiResponse(responseCode = "400", description = "BAD REQUEST !!"),
+            @ApiResponse(responseCode = "404", description = "NOT FOUND !!"),
+            @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR !!")
+    })
+    @PostMapping
+    public ResponseEntity<Boolean> insertMartProduct(@Valid @RequestParam MartProductInsertRequest request) {
+        return ResponseEntity.ok(Boolean.TRUE);
     }
 
     @Operation(summary = "update mart product amount", description = "장바구니에서 품목을 증가하거나 뺀다. \namountChangeType - INCREASE, DECREASE")

@@ -13,11 +13,8 @@ import javax.validation.constraints.NotNull;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class AmountChangeRequest {
+public class MartProductInsertRequest {
 
     @NotNull
     private Long martProductId;
-
-    @NotNull
-    private AmountChangeType amountChangeType;
 }
