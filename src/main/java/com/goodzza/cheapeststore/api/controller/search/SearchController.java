@@ -48,8 +48,8 @@ public class SearchController {
                 SearchResponse.builder()
                               .martProducts(
                                       randomMartProductGenerator.searchMartProducts(keyword, pageSize, pageNumber))
-                              .pageSize(pageSize + 1)
-                              .pageNumber(pageNumber)
+                              .pageSize(pageSize)
+                              .pageNumber(pageNumber + 1)
                               .build());
     }
 
