@@ -1,5 +1,6 @@
 package com.goodzza.cheapeststore.api.controller.accountBook;
 
+import com.goodzza.cheapeststore.api.application.RandomMartGenerator;
 import com.goodzza.cheapeststore.api.application.RandomProductGenerator;
 import com.goodzza.cheapeststore.api.dto.accountBook.AccountBookResponse;
 import com.goodzza.cheapeststore.api.dto.accountBook.BalanceVo;
@@ -41,6 +42,7 @@ public class AccountBookController {
 
     private static final Random RAND = new Random();
     private final RandomProductGenerator randomProductGenerator;
+    private final RandomMartGenerator randomMartGenerator;
 
     @Operation(summary = "monthly balance", description = "목표로 설정한 금액과 현재 남아있는 금액을 보여준다.")
     @ApiResponses({
@@ -157,6 +159,7 @@ public class AccountBookController {
 
             return MonthlyPayoutVo.builder()
                                   .date(LocalDate.of(year, month, day))
+                                  .martName(randomMartGenerator.generate((long) i).getMartName())
                                   .products(products)
                                   .totalPrice(price)
                                   .build();

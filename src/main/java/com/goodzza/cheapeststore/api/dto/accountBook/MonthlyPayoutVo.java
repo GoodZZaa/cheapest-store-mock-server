@@ -17,6 +17,7 @@ import java.util.List;
 public class MonthlyPayoutVo {
 
     private LocalDate date;
+    private String martName;
     private List<String> products;
     private Long totalPrice;
 }

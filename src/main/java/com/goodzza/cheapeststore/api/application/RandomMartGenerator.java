@@ -51,7 +51,7 @@ public class RandomMartGenerator implements RandomGenerator<MartVo> {
                     "https://images.unsplash.com/photo-1605447813584-26aeb3f8e6ae?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2370&q=80"),
             Pair.of("미스트 마트",
                     "https://images.unsplash.com/photo-1606824722920-4c652a70f348?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1335&q=80"),
-            Pair.of("헤헷 마트",
+            Pair.of("순양 마트",
                     "https://plus.unsplash.com/premium_photo-1661381021048-5498177b2c3d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=987&q=80")
     );
     private static final String WHITE_SPACE = " ";
