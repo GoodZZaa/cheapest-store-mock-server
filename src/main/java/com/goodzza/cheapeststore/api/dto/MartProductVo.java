@@ -14,6 +14,7 @@ import org.springframework.beans.BeanUtils;
 @NoArgsConstructor
 public class MartProductVo {
     private Long martProductId;
+    private String martName;
     private String productName;
     private String imageUrl;
     private Long price;

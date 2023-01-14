@@ -22,6 +22,8 @@ public class RandomMartProductGenerator implements RandomGenerator<MartProductVo
     private final RandomAdjectiveGenerator randomAdjectiveGenerator;
     private final RandomProductGenerator randomProductGenerator;
 
+    private final RandomMartGenerator randomMartGenerator;
+
     public List<MartProductVo> generate(Integer pageSize, Integer pageNumber) {
         return IntStream.range(0, pageSize)
                         .mapToObj(i -> generate(RandomIdUtils.getRandomId(pageNumber, 100L)))
@@ -40,6 +42,8 @@ public class RandomMartProductGenerator implements RandomGenerator<MartProductVo
         String imageUrl = product.getImageUrl();
         MartProductVo martProduct = MartProductVo.convert(product);
 
+        martProduct.setMartName(randomAdjectiveGenerator.getRandomAdjective() + WHITE_SPACE
+                                + randomMartGenerator.generate(0L).getMartName());
         martProduct.setProductName(randomAdjectiveGenerator.getRandomAdjective() + WHITE_SPACE + name);
         martProduct.setImageUrl(imageUrl);
         martProduct.setPrice(RAND.nextLong(1000L, 50000L) % 100 * 100);
@@ -53,7 +57,6 @@ public class RandomMartProductGenerator implements RandomGenerator<MartProductVo
             Long originalPrice = mock.getPrice();
             int discountPercent = RAND.nextInt(50);
             UnitType randomUnit = UnitType.getRandomUnit();
-
             mock.setProductName(randomAdjectiveGenerator.getRandomAdjective() + WHITE_SPACE + keyword);
             mock.setOriginalPrice(originalPrice);
             mock.setDiscountPercent(discountPercent);
