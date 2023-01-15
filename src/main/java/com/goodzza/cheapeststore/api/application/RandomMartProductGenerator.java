@@ -60,7 +60,7 @@ public class RandomMartProductGenerator implements RandomGenerator<MartProductVo
             mock.setProductName(randomAdjectiveGenerator.getRandomAdjective() + WHITE_SPACE + keyword);
             mock.setOriginalPrice(originalPrice);
             mock.setDiscountPercent(discountPercent);
-            mock.setPrice((long) (discountPercent / 100f * originalPrice));
+            mock.setPrice((long) ((100 - discountPercent) / 100f * originalPrice));
             mock.setUnit(randomUnit.getUnitName());
             mock.setUnitValue(1 + RAND.nextInt(randomUnit.getUpperLimit()));
             mock.setProductId(RandomIdUtils.getRandomId(0, 2000L));
