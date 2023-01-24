@@ -18,6 +18,7 @@ public class MonthlyPayoutVo {
 
     private LocalDate date;
     private String martName;
+    private String martImageUrl;
     private List<String> products;
     private Long totalPrice;
 }

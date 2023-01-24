@@ -2,6 +2,7 @@ package com.goodzza.cheapeststore.api.controller.accountBook;
 
 import com.goodzza.cheapeststore.api.application.RandomMartGenerator;
 import com.goodzza.cheapeststore.api.application.RandomProductGenerator;
+import com.goodzza.cheapeststore.api.dto.MartVo;
 import com.goodzza.cheapeststore.api.dto.accountBook.AccountBookResponse;
 import com.goodzza.cheapeststore.api.dto.accountBook.BalanceVo;
 import com.goodzza.cheapeststore.api.dto.accountBook.DaySummaryVo;
@@ -157,9 +158,11 @@ public class AccountBookController {
                                              .mapToObj(j -> randomProductGenerator.generate().getProductName())
                                              .toList();
 
+            MartVo randomMart = randomMartGenerator.generate((long) i);
             return MonthlyPayoutVo.builder()
                                   .date(LocalDate.of(year, month, day))
-                                  .martName(randomMartGenerator.generate((long) i).getMartName())
+                                  .martName(randomMart.getMartName())
+                                  .martImageUrl(randomMart.getImageUrl())
                                   .products(products)
                                   .totalPrice(price)
                                   .build();
